@@ -12,43 +12,35 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var rpcCmd = &cobra.Command{
-	Use:   "rpc",
-	Short: "Make an API call to the controller.",
-	Args:  cobra.MinimumNArgs(1),
-	RunE:  rpcFunc,
+var apiCmd = &cobra.Command{
+	Use:   "api",
+	Short: "Make a v2.5 API call to the controller.",
+	Args:  cobra.MinimumNArgs(2),
+	RunE:  apiFunc,
 }
 
-func jsonErr(message string, err error) error {
-	j, _ := json.Marshal(struct {
-		Message string
-		Error   string
-	}{
-		Message: message,
-		Error:   err.Error(),
-	})
-	return fmt.Errorf(string(j))
-}
-
-func rpcFunc(cmd *cobra.Command, args []string) error {
+func apiFunc(cmd *cobra.Command, args []string) error {
 	client, err := getClient()
 	if err != nil {
 		return jsonErr("could not get client", err)
 	}
 
-	action := args[0]
+	method := args[0]
+	endpoint := args[1]
+	Url := fmt.Sprintf("https://%s/v2.5/api/%s", client.ControllerIP, endpoint)
 
-	data := map[string]interface{}{
-		"action": action,
-		"CID":    client.CID,
-	}
+	var data map[string]interface{}
 
-	for _, v := range args[1:] {
-		parts := strings.Split(v, "=")
-		if len(parts) != 2 {
-			return jsonErr(fmt.Sprintf("invalid format for API params, expected 'key=value', got %q", v), nil)
+	if len(args) > 2 {
+		data = make(map[string]interface{})
+
+		for _, v := range args[2:] {
+			parts := strings.Split(v, "=")
+			if len(parts) != 2 {
+				return jsonErr(fmt.Sprintf("invalid format for API params, expected 'key=value', got %q", v), nil)
+			}
+			data[parts[0]] = parts[1]
 		}
-		data[parts[0]] = parts[1]
 	}
 
 	var dataBuffer bytes.Buffer
@@ -63,12 +55,14 @@ func rpcFunc(cmd *cobra.Command, args []string) error {
 	}
 	if !JsonOnly {
 		fmt.Printf("controller IP: %s\n", client.ControllerIP)
+		fmt.Printf("request url: %s\n", Url)
 		fmt.Printf("request body:\n"+color.Sprint("%s\n", color.Green), dataBuffer.String())
 	}
 
 	start := time.Now()
-	Url := fmt.Sprintf("https://%s/v1/api/", client.ControllerIP)
-	resp, err := client.RequestContext(context.Background(), "POST", Url, data)
+
+	resp, err := client.RequestContext25(context.Background(), strings.ToUpper(method), Url, nil)
+
 	end := time.Now()
 	if !JsonOnly {
 		fmt.Printf("latency: %dms\n", end.Sub(start).Milliseconds())
@@ -80,7 +74,7 @@ func rpcFunc(cmd *cobra.Command, args []string) error {
 	buf := new(bytes.Buffer)
 	_, err = buf.ReadFrom(resp.Body)
 	if err != nil {
-		return fmt.Errorf(color.Sprint("error reading response body %q failed: %v", color.Red), action, err)
+		return fmt.Errorf(color.Sprint("error reading response body %q failed: %v", color.Red), endpoint, err)
 	}
 	b := buf.Bytes()
 	if JsonOnly {
@@ -88,6 +82,7 @@ func rpcFunc(cmd *cobra.Command, args []string) error {
 	} else {
 		var pp bytes.Buffer
 		err = json.Indent(&pp, b, "", "  ")
+		fmt.Printf("response status code: %d\n", resp.StatusCode)
 		fmt.Printf("response body:\n%s\n", color.Sprint(pp.String(), color.Green))
 	}
 

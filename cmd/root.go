@@ -34,6 +34,7 @@ func Execute() error {
 
 func init() {
 	rpcCmd.PersistentFlags().BoolVarP(&JsonOnly, "json-only", "j", false, "json response only output")
+	rootCmd.AddCommand(apiCmd)
 	rootCmd.AddCommand(rpcCmd)
 	rootCmd.AddCommand(loginCmd)
 	exportCmd.PersistentFlags().BoolVarP(&WriteToFile, "file", "f", false, "write output to file instead of stdout")
