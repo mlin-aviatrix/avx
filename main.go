@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/mlin-aviatrix/avx/cmd"
+	"github.com/CyrusJavan/avx/cmd"
 )
 
 func main() {

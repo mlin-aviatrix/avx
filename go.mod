@@ -1,4 +1,4 @@
-module github.com/mlin-aviatrix/avx
+module github.com/CyrusJavan/avx
 
 go 1.15
 

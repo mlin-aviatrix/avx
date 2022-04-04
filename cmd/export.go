@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/mlin-aviatrix/avx/color"
+	"github.com/CyrusJavan/avx/color"
 	"github.com/spf13/cobra"
 )
 
