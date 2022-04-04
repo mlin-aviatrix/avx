@@ -48,6 +48,29 @@ CID: "MMUyqYcNOjaWUWIFHmYA"
 
 ---
 
+### `avx api <method> <path>`
+
+`avx api <method> <path>` will attempt to login and send an HTTP request based on the
+provided method `method` to the provided API `path`. `avx` prints out debug information
+like the controller IP, request URL, request body and response latency. `avx` then prints out
+the response status code and body.
+```shell script
+$ avx api GET app-domains
+controller IP: 127.0.0.1
+request url: https://127.0.0.1/v2.5/api/app-domains
+request body:
+null
+latency: 11ms
+response status code: 200
+response body:
+{
+  "app_domains": [
+    {
+      ...
+```
+
+---
+
 ### `avx rpc <action>`
 
 `avx rpc <action>` will attempt to login and send a POST request to
