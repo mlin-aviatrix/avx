@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/CyrusJavan/avx/color"
+	"github.com/mlin-aviatrix/avx/color"
 	"github.com/spf13/cobra"
 )
 
