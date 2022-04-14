@@ -33,8 +33,8 @@ cloud.google.com/go/storage v1.8.0/go.mod h1:Wv1Oy7z6Yz3DshWRJFhqM/UCfaWIRTdp0RX
 cloud.google.com/go/storage v1.10.0 h1:STgFzyU5/8miMl0//zKh2aQeTyeaUH3WN9bSUiJ09bA=
 cloud.google.com/go/storage v1.10.0/go.mod h1:FLPqc6j+Ki4BU591ie1oL6qBQGu2Bl/tZ9ullr3+Kg0=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
-github.com/AviatrixSystems/terraform-provider-aviatrix/v2 v2.21.1-6.6.ga.0.20220404161749-f6457e654184 h1:0tW7S+YG6O1H2cJTOsb/FNqWbqKxqlm6ksZQ77KThSA=
-github.com/AviatrixSystems/terraform-provider-aviatrix/v2 v2.21.1-6.6.ga.0.20220404161749-f6457e654184/go.mod h1:BxEojMfMGwFy/bXkBFUaMGb79jDTEUrXx3IDLn48S/k=
+github.com/AviatrixSystems/terraform-provider-aviatrix/v2 v2.21.1-6.6.ga.0.20220414200057-f77573eb0cab h1:OO04di44PPXO+9Hq++7hUq4QWjK8/MwSv97CSVEp2Q4=
+github.com/AviatrixSystems/terraform-provider-aviatrix/v2 v2.21.1-6.6.ga.0.20220414200057-f77573eb0cab/go.mod h1:BxEojMfMGwFy/bXkBFUaMGb79jDTEUrXx3IDLn48S/k=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Masterminds/goutils v1.1.0/go.mod h1:8cTjp+g8YejhMuvIA5y2vz3BpJxksy863GQaJW2MFNU=
